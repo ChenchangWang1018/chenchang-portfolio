@@ -1,0 +1,289 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background-primary: var(--color-bg-primary);
+  --color-background-secondary: var(--color-bg-secondary);
+  --color-background-elevated: var(--color-bg-elevated);
+  --color-foreground-primary: var(--color-text-primary);
+  --color-foreground-secondary: var(--color-text-secondary);
+  --color-foreground-muted: var(--color-text-muted);
+  --color-line-default: var(--color-border-default);
+  --color-line-hover: var(--color-border-hover);
+  --color-accent: var(--color-accent-ice);
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
+  --radius-surface-small: var(--radius-small);
+  --radius-surface-medium: var(--radius-medium);
+  --radius-surface-large: var(--radius-large);
+  --radius-surface-pill: var(--radius-pill);
+  --ease-editorial: var(--ease-primary);
+}
+
+:root {
+  color-scheme: dark;
+
+  /* Color */
+  --color-bg-primary: #080808;
+  --color-bg-secondary: #0e0e0e;
+  --color-bg-elevated: #141414;
+  --color-text-primary: #f2f2ef;
+  --color-text-secondary: #a1a19a;
+  --color-text-muted: #666662;
+  --color-border-default: rgb(255 255 255 / 10%);
+  --color-border-hover: rgb(255 255 255 / 24%);
+  --color-accent-ice: #8cc8ff;
+  --color-accent-selection: rgb(140 200 255 / 24%);
+
+  /* Typography */
+  --font-family-sans: Inter, "SF Pro Display", "SF Pro Text", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans CJK SC", "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+  --font-family-mono: "SFMono-Regular", "SF Mono", "Cascadia Code",
+    "Roboto Mono", "Noto Sans Mono CJK SC", "Microsoft YaHei UI", monospace;
+
+  --type-display-xl-size: clamp(3.5rem, 7.8vw, 7.5rem);
+  --type-display-size: clamp(2.75rem, 6vw, 5.5rem);
+  --type-heading-1-size: clamp(2.25rem, 4vw, 4rem);
+  --type-heading-2-size: clamp(1.75rem, 2.6vw, 2.75rem);
+  --type-body-large-size: clamp(1.125rem, 1.4vw, 1.375rem);
+  --type-body-size: clamp(1rem, 1.1vw, 1.125rem);
+  --type-small-size: 0.875rem;
+  --type-meta-size: 0.75rem;
+
+  /* Layout */
+  --layout-content-max: 77.5rem;
+  --layout-gutter: 1.25rem;
+  --layout-grid-columns: 12;
+  --layout-grid-gap: clamp(1rem, 2vw, 2rem);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 2rem;
+  --space-8: 2.5rem;
+  --space-9: 3rem;
+  --space-10: 4rem;
+  --space-11: 5rem;
+  --space-12: 6rem;
+  --space-13: 7.5rem;
+  --space-14: 8.75rem;
+  --space-15: 10rem;
+  --space-16: 12.5rem;
+  --section-space-small: clamp(5rem, 10vw, 8.75rem);
+  --section-space: clamp(6rem, 12vw, 11rem);
+  --section-space-large: clamp(7rem, 14vw, 12.5rem);
+
+  /* Surfaces */
+  --radius-small: 0.5rem;
+  --radius-medium: 0.875rem;
+  --radius-large: 1.375rem;
+  --radius-pill: 9999px;
+
+  /* Interaction */
+  --duration-micro: 200ms;
+  --duration-standard: 360ms;
+  --duration-reveal: 700ms;
+  --ease-primary: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --layout-gutter: 2rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --layout-gutter: 4rem;
+  }
+}
+
+:lang(zh-CN) {
+  --font-family-sans: "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans CJK SC", "Noto Sans SC", "Microsoft YaHei", "Segoe UI",
+    sans-serif;
+  --font-family-mono: "SFMono-Regular", "SF Mono", "Cascadia Code",
+    "Noto Sans Mono CJK SC", "Microsoft YaHei UI", monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 20rem;
+  background: var(--color-bg-primary);
+  scroll-behavior: auto;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: clip;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-sans);
+  font-size: var(--type-body-size);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-accent-selection);
+  color: var(--color-text-primary);
+}
+
+:focus-visible {
+  border-radius: var(--radius-small);
+  outline: 2px solid var(--color-accent-ice);
+  outline-offset: 3px;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  color: inherit;
+  font: inherit;
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--font-family-mono);
+}
+
+.page-container {
+  width: 100%;
+  max-width: calc(
+    var(--layout-content-max) + var(--layout-gutter) + var(--layout-gutter)
+  );
+  margin-inline: auto;
+  padding-inline: var(--layout-gutter);
+}
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--layout-grid-columns), minmax(0, 1fr));
+  gap: var(--layout-grid-gap);
+}
+
+.section-space-small {
+  padding-block: var(--section-space-small);
+}
+
+.section-space {
+  padding-block: var(--section-space);
+}
+
+.section-space-large {
+  padding-block: var(--section-space-large);
+}
+
+.surface {
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-medium);
+  background: var(--color-bg-secondary);
+}
+
+.surface-elevated {
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-large);
+  background: var(--color-bg-elevated);
+}
+
+.type-display-xl,
+.type-display,
+.type-heading-1,
+.type-heading-2 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-sans);
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.type-display-xl {
+  font-size: var(--type-display-xl-size);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+
+.type-display {
+  font-size: var(--type-display-size);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+}
+
+.type-heading-1 {
+  font-size: var(--type-heading-1-size);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.type-heading-2 {
+  font-size: var(--type-heading-2-size);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+.type-body-large,
+.type-body,
+.type-small,
+.type-meta {
+  margin: 0;
+}
+
+.type-body-large {
+  color: var(--color-text-secondary);
+  font-size: var(--type-body-large-size);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+}
+
+.type-body {
+  color: var(--color-text-secondary);
+  font-size: var(--type-body-size);
+  line-height: 1.65;
+}
+
+.type-small {
+  color: var(--color-text-muted);
+  font-size: var(--type-small-size);
+  line-height: 1.5;
+}
+
+.type-meta {
+  color: var(--color-text-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--type-meta-size);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
