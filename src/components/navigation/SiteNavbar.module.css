@@ -1,8 +1,25 @@
 .header {
+  --taskflow-nav-progress: 0;
+
   position: fixed;
   inset: 0 0 auto;
   z-index: 100;
   padding-top: var(--space-4);
+  opacity: calc(1 - var(--taskflow-nav-progress));
+  pointer-events: none;
+  transform: translate3d(
+    0,
+    calc(-1.25rem * var(--taskflow-nav-progress)),
+    0
+  );
+  transition:
+    opacity var(--duration-micro) var(--ease-primary),
+    transform var(--duration-micro) var(--ease-primary);
+  will-change: opacity, transform;
+}
+
+.header[data-taskflow-hidden="true"] .navShell,
+.header[data-taskflow-hidden="true"] .mobilePanel {
   pointer-events: none;
 }
 
@@ -159,6 +176,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .header {
+    transition: none;
+    will-change: auto;
+  }
+
   .navShell,
   .navLink {
     transition: none;

@@ -4,20 +4,33 @@ export const projects = {
   taskflow: {
     id: "taskflow",
     name: "TaskFlow",
-    summary: null,
-    description: null,
+    eyebrow: "01 / Selected work",
+    scrollHint: "Scroll to expand ↓",
+    summary:
+      "Distributed task scheduling built around reliability, recovery, and observable worker state.",
+    description:
+      "A distributed task scheduler with concurrent workers, retries, heartbeats, failure recovery, and observable task state.",
     role: null,
     period: null,
     highlights: [],
-    technologies: [],
+    technologies: [
+      "Go",
+      "PostgreSQL",
+      "Redis",
+      "React",
+      "Docker",
+      "Google Cloud",
+    ],
     linkLabels: {
-      live: null,
-      github: null,
+      live: "Open live",
+      github: "View source",
     },
   },
   coursepilot: {
     id: "coursepilot",
     name: "CoursePilot",
+    eyebrow: null,
+    scrollHint: null,
     summary: null,
     description: null,
     role: null,
@@ -31,6 +44,8 @@ export const projects = {
   pong: {
     id: "pong",
     name: "3D Pong",
+    eyebrow: null,
+    scrollHint: null,
     summary: null,
     description: null,
     role: null,

@@ -44,6 +44,8 @@ export interface DateRangeContent {
 export interface ProjectCopy {
   readonly id: ProjectId;
   readonly name: string;
+  readonly eyebrow: EditorialText;
+  readonly scrollHint: EditorialText;
   readonly summary: EditorialText;
   readonly description: EditorialText;
   readonly role: EditorialText;

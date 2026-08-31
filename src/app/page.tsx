@@ -1,5 +1,6 @@
 import { Hero } from "../components/hero/Hero";
 import { SiteNavbar } from "../components/navigation/SiteNavbar";
+import { TaskFlowSection } from "../components/projects/TaskFlowSection";
 import { getPortfolioContent } from "../content";
 
 function requireCopy(value: string | null, field: string) {
@@ -22,6 +23,7 @@ export default function Home() {
       <SiteNavbar items={content.navigation} resumeLabel={resumeLabel} />
       <main>
         <Hero name={name} headline={headline} summary={summary} />
+        <TaskFlowSection project={content.projects.taskflow} />
       </main>
     </>
   );

@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 import type { NavigationItem } from "../../content";
+import {
+  TASKFLOW_SCROLL_EVENT,
+  type ScrollExpandProgressDetail,
+} from "../../lib/scroll-events";
 import styles from "./SiteNavbar.module.css";
 
 interface SiteNavbarProps {
@@ -13,6 +17,7 @@ interface SiteNavbarProps {
 export function SiteNavbar({ items, resumeLabel }: SiteNavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const firstMenuLinkRef = useRef<HTMLAnchorElement>(null);
 
@@ -32,6 +37,42 @@ export function SiteNavbar({ items, resumeLabel }: SiteNavbarProps) {
     return () => {
       cancelAnimationFrame(animationFrame);
       window.removeEventListener("scroll", updateScrollState);
+    };
+  }, []);
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const handleTaskFlowProgress = (event: Event) => {
+      const { active, progress } = (
+        event as CustomEvent<ScrollExpandProgressDetail>
+      ).detail;
+      const normalized = Math.min(
+        1,
+        Math.max(0, (progress - 0.65) / (0.82 - 0.65)),
+      );
+      const eased = normalized * normalized * (3 - 2 * normalized);
+      const visibilityProgress = active ? eased : 0;
+      const hidden = visibilityProgress >= 0.995;
+
+      header.style.setProperty(
+        "--taskflow-nav-progress",
+        visibilityProgress.toFixed(4),
+      );
+      header.dataset.taskflowHidden = hidden ? "true" : "false";
+      header.inert = hidden;
+      header.setAttribute("aria-hidden", hidden ? "true" : "false");
+    };
+
+    window.addEventListener(TASKFLOW_SCROLL_EVENT, handleTaskFlowProgress);
+
+    return () => {
+      window.removeEventListener(TASKFLOW_SCROLL_EVENT, handleTaskFlowProgress);
+      header.style.removeProperty("--taskflow-nav-progress");
+      delete header.dataset.taskflowHidden;
+      header.inert = false;
+      header.removeAttribute("aria-hidden");
     };
   }, []);
 
@@ -70,6 +111,7 @@ export function SiteNavbar({ items, resumeLabel }: SiteNavbarProps) {
 
   return (
     <header
+      ref={headerRef}
       className={styles.header}
       data-scrolled={isScrolled ? "true" : "false"}
       data-menu-open={isMenuOpen ? "true" : "false"}

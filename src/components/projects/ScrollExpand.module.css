@@ -1,0 +1,135 @@
+.root {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  background: var(--color-bg-primary);
+}
+
+.track {
+  position: relative;
+  width: 100%;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  min-height: 38rem;
+  overflow: clip;
+  background: var(--color-bg-primary);
+  isolation: isolate;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  will-change: clip-path;
+}
+
+.mediaShell {
+  position: absolute;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--color-bg-secondary);
+  pointer-events: auto;
+  will-change: inset, border-radius;
+}
+
+.fallbackMedia {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.scrim {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: rgb(0 0 0 / 42%);
+  opacity: 0;
+  will-change: opacity;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 2;
+  right: clamp(3rem, 4.25vw, 4rem);
+  bottom: clamp(1.75rem, 3.5vh, 2.5rem);
+  left: clamp(3rem, 4.25vw, 4rem);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.title {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: max-content;
+  max-width: 90vw;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-sans);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 0.8;
+  pointer-events: none;
+  text-align: center;
+  will-change: opacity;
+}
+
+.hint {
+  position: absolute;
+  z-index: 3;
+  bottom: clamp(1.5rem, 4vh, 2.75rem);
+  left: 50%;
+  margin: 0;
+  transform: translateX(-50%);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-mono);
+  font-size: var(--type-meta-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  pointer-events: none;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  will-change: opacity;
+}
+
+@media (max-width: 40rem) {
+  .stage {
+    min-height: 34rem;
+  }
+
+  .overlay {
+    right: var(--space-5);
+    bottom: 1.5rem;
+    left: var(--space-5);
+  }
+
+  .hint {
+    bottom: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame,
+  .mediaShell,
+  .fallbackMedia,
+  .scrim,
+  .overlay,
+  .title,
+  .hint {
+    will-change: auto;
+  }
+}

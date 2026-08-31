@@ -5,6 +5,8 @@ export const projects = {
   taskflow: {
     id: "taskflow",
     name: "TaskFlow",
+    eyebrow: null,
+    scrollHint: null,
     summary: null,
     description: null,
     role: null,
@@ -19,6 +21,8 @@ export const projects = {
   coursepilot: {
     id: "coursepilot",
     name: "CoursePilot",
+    eyebrow: null,
+    scrollHint: null,
     summary: null,
     description: null,
     role: null,
@@ -32,6 +36,8 @@ export const projects = {
   pong: {
     id: "pong",
     name: "3D Pong",
+    eyebrow: null,
+    scrollHint: null,
     summary: null,
     description: null,
     role: null,

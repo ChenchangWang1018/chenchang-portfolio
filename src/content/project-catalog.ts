@@ -8,6 +8,7 @@ export interface ProjectCatalogEntry {
   readonly id: ProjectId;
   readonly links: Partial<Record<ProjectLinkKind, string>>;
   readonly sourceAssets: readonly string[];
+  readonly publicAssets?: readonly string[];
 }
 
 /**
@@ -21,6 +22,7 @@ export const PROJECT_CATALOG = {
       github: VERIFIED_LINKS.projects.taskflow.github,
     },
     sourceAssets: SOURCE_ASSETS.projects.taskflow,
+    publicAssets: ["/projects/taskflow/taskflow-overview-01.webp"],
   },
   coursepilot: {
     id: "coursepilot",
@@ -37,4 +39,3 @@ export const PROJECT_CATALOG = {
     sourceAssets: SOURCE_ASSETS.projects.pong,
   },
 } as const satisfies Record<ProjectId, ProjectCatalogEntry>;
-
