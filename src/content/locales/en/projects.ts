@@ -28,17 +28,26 @@ export const projects = {
   },
   coursepilot: {
     id: "coursepilot",
-    name: "CoursePilot",
-    eyebrow: null,
+    name: "CoursePilot AI",
+    eyebrow: "02 / More projects",
     scrollHint: null,
     summary: null,
-    description: null,
+    description:
+      "An AI-powered study workspace that turns course PDFs into study guides, quizzes, performance reports, and source-grounded tutoring.",
     role: null,
     period: null,
     highlights: [],
-    technologies: [],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "FastAPI",
+      "Python",
+      "OpenAI API",
+      "PyMuPDF",
+      "RAG",
+    ],
     linkLabels: {
-      github: null,
+      github: "View source",
     },
   },
   pong: {

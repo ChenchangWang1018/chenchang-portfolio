@@ -1,0 +1,284 @@
+.section {
+  position: relative;
+  overflow: clip;
+  scroll-margin-top: 5rem;
+  background: var(--color-bg-primary);
+}
+
+.container {
+  padding-top: var(--section-space-large);
+  padding-bottom: var(--section-space-large);
+}
+
+.eyebrow,
+.technologies,
+.action {
+  margin: 0;
+  font-family: var(--font-family-mono);
+  font-size: var(--type-meta-size);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  padding-bottom: var(--space-7);
+  border-bottom: 1px solid var(--color-border-default);
+  color: var(--color-text-muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(16rem, 4fr) minmax(0, 7fr);
+  align-items: center;
+  gap: clamp(3rem, 6vw, 6.5rem);
+  padding-top: clamp(4.5rem, 7vw, 7rem);
+}
+
+.copy {
+  display: flex;
+  max-width: 28rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title {
+  max-width: 8ch;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 26rem;
+  margin: var(--space-9) 0 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  letter-spacing: -0.012em;
+  line-height: 1.62;
+}
+
+.technologies {
+  margin-top: var(--space-7);
+  color: var(--color-text-muted);
+  letter-spacing: 0.075em;
+  line-height: 1.75;
+}
+
+.action {
+  margin-top: var(--space-9);
+  color: var(--color-text-primary);
+  transition: color var(--duration-micro) var(--ease-primary);
+}
+
+.action:hover {
+  color: var(--color-accent-ice);
+}
+
+.showcase {
+  min-width: 0;
+  perspective: 1000px;
+}
+
+.cardContainer,
+.tiltPlane {
+  width: 100%;
+}
+
+.tiltPlane {
+  transform-origin: center;
+}
+
+.cardBody {
+  position: relative;
+  height: clamp(31rem, 46vw, 39rem);
+}
+
+.layer {
+  position: absolute;
+  transform-origin: center;
+}
+
+.studyGuide {
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 88%;
+}
+
+.quiz {
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  width: 46%;
+}
+
+.productSurface {
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-medium);
+  background: var(--color-bg-secondary);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  user-select: none;
+}
+
+@media (min-width: 64rem) {
+  .title {
+    font-size: clamp(3rem, 4.8vw, 4.75rem);
+    line-height: 0.88;
+  }
+
+  .showcase {
+    transform: translateX(-1.5rem);
+  }
+
+  .studyGuide {
+    width: 82%;
+  }
+
+  .quiz {
+    right: 4%;
+    bottom: 5%;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .productSurface {
+    transition: border-color var(--duration-standard) var(--ease-primary);
+  }
+
+  .tiltPlane:hover .productSurface {
+    border-color: var(--color-border-hover);
+  }
+}
+
+@media (max-width: 63.999rem) {
+  .layout {
+    grid-template-columns: minmax(14rem, 5fr) minmax(0, 7fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .cardBody {
+    height: clamp(27rem, 50vw, 34rem);
+  }
+}
+
+@media (max-width: 55.999rem) {
+  .container {
+    padding-top: var(--section-space);
+    padding-bottom: var(--section-space);
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  .copy {
+    max-width: 37rem;
+  }
+
+  .title {
+    max-width: none;
+  }
+
+  .description {
+    max-width: 35rem;
+  }
+
+  .showcase {
+    width: 100%;
+  }
+
+  .cardBody {
+    height: clamp(28rem, 77vw, 39rem);
+  }
+
+  .studyGuide {
+    width: 92%;
+  }
+
+  .quiz {
+    width: 50%;
+  }
+
+  .tiltPlane,
+  .layer {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 40rem) {
+  .container {
+    padding-top: var(--section-space-small);
+    padding-bottom: var(--section-space-small);
+  }
+
+  .eyebrow {
+    padding-bottom: var(--space-5);
+  }
+
+  .layout {
+    gap: var(--space-10);
+    padding-top: var(--space-8);
+  }
+
+  .title {
+    font-size: clamp(2.75rem, 15vw, 4.5rem);
+  }
+
+  .description {
+    margin-top: var(--space-7);
+  }
+
+  .technologies {
+    margin-top: var(--space-6);
+    font-size: 0.65rem;
+  }
+
+  .action {
+    margin-top: var(--space-7);
+  }
+
+  .cardBody {
+    height: clamp(19rem, 105vw, 27rem);
+  }
+
+  .studyGuide {
+    width: 94%;
+  }
+
+  .quiz {
+    width: 54%;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .tiltPlane,
+  .layer {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tiltPlane,
+  .layer,
+  .productSurface,
+  .action {
+    transform: none !important;
+    transition: none !important;
+  }
+}

@@ -11,8 +11,9 @@ export const SOURCE_ASSETS = {
     taskflow: ["assets-source/taskflow/taskflow-overview-01.png"],
     coursepilot: [
       "assets-source/coursepilot/coursepilot-study-guide-01.png",
+      "assets-source/coursepilot/coursepilot-study-guide-02.png",
+      "assets-source/coursepilot/coursepilot-quiz-01.png",
     ],
     pong: ["assets-source/pong/pong-lobby-01.png"],
   },
 } as const;
-

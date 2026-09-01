@@ -30,6 +30,10 @@ export const PROJECT_CATALOG = {
       github: VERIFIED_LINKS.projects.coursepilot.github,
     },
     sourceAssets: SOURCE_ASSETS.projects.coursepilot,
+    publicAssets: [
+      "/projects/coursepilot/coursepilot-study-guide-02.webp",
+      "/projects/coursepilot/coursepilot-quiz-01.webp",
+    ],
   },
   pong: {
     id: "pong",
