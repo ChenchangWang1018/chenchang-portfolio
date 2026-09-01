@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/next";
 
 interface DocumentShellProps {
   readonly children: ReactNode;
@@ -8,7 +9,10 @@ interface DocumentShellProps {
 export function DocumentShell({ children, lang }: DocumentShellProps) {
   return (
     <html lang={lang}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
