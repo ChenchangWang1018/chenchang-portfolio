@@ -1,0 +1,212 @@
+.section {
+  scroll-margin-top: 5rem;
+  background: var(--color-bg-primary);
+}
+
+.container {
+  padding-bottom: var(--section-space-large);
+}
+
+.eyebrow,
+.subheading,
+.skillLabel,
+.years,
+.expected,
+.educationHighlights,
+.educationLocation {
+  margin: 0;
+  font-family: var(--font-family-mono);
+  font-size: var(--type-meta-size);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  padding-bottom: var(--space-7);
+  border-bottom: 1px solid var(--color-border-default);
+  color: var(--color-text-muted);
+}
+
+.primaryLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  gap: clamp(4rem, 8vw, 8rem);
+  padding-block: clamp(4.5rem, 8vw, 7.5rem);
+}
+
+.aboutColumn,
+.skillsColumn {
+  min-width: 0;
+}
+
+.subheading,
+.skillLabel,
+.years,
+.expected,
+.educationHighlights,
+.educationLocation {
+  color: var(--color-text-muted);
+}
+
+.aboutCopy {
+  display: grid;
+  max-width: 32rem;
+  margin-top: var(--space-8);
+  gap: var(--space-6);
+}
+
+.aboutCopy p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(1.08rem, 1.45vw, 1.3rem);
+  letter-spacing: -0.018em;
+  line-height: 1.65;
+}
+
+.skillGroups {
+  margin-top: var(--space-8);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.skillGroup {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.42fr) minmax(0, 1fr);
+  gap: var(--space-7);
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--color-border-default);
+  align-items: baseline;
+}
+
+.skillLabel {
+  letter-spacing: 0.075em;
+}
+
+.skillItems {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+  letter-spacing: -0.012em;
+  line-height: 1.65;
+}
+
+.educationBlock {
+  padding-top: var(--space-10);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.educationEntries {
+  margin-top: var(--space-8);
+}
+
+.educationEntry {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(10rem, 0.55fr);
+  gap: var(--space-7) clamp(3rem, 7vw, 7rem);
+  padding-block: var(--space-8);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.educationIdentity,
+.educationTiming {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.educationTiming {
+  justify-items: end;
+  text-align: right;
+}
+
+.institution {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.degree {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
+}
+
+.years,
+.expected,
+.educationHighlights,
+.educationLocation {
+  letter-spacing: 0.075em;
+}
+
+.educationHighlights {
+  align-self: end;
+}
+
+.educationLocation {
+  align-self: end;
+  text-align: right;
+}
+
+@media (max-width: 63.999rem) {
+  .primaryLayout {
+    gap: clamp(3rem, 6vw, 5rem);
+  }
+
+  .skillGroup {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}
+
+@media (max-width: 55.999rem) {
+  .container {
+    padding-bottom: var(--section-space);
+  }
+
+  .eyebrow {
+    padding-bottom: var(--space-5);
+  }
+
+  .primaryLayout {
+    grid-template-columns: 1fr;
+    gap: var(--space-11);
+    padding-block: var(--space-10);
+  }
+
+  .aboutCopy,
+  .skillGroups {
+    margin-top: var(--space-7);
+  }
+
+  .aboutCopy {
+    max-width: 38rem;
+  }
+
+  .skillGroup {
+    padding-block: var(--space-5);
+  }
+
+  .educationBlock {
+    padding-top: var(--space-9);
+  }
+
+  .educationEntry {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding-block: var(--space-7);
+  }
+
+  .educationTiming {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .educationHighlights,
+  .educationLocation {
+    text-align: left;
+  }
+}

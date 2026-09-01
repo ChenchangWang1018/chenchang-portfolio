@@ -15,6 +15,42 @@ export interface SiteContent {
   readonly description: EditorialText;
 }
 
+export interface InterfaceContent {
+  readonly heroScrollHint: string;
+  readonly languageLabel: string;
+  readonly homeLabel: string;
+  readonly primaryNavigationLabel: string;
+  readonly menuLabel: string;
+  readonly closeMenuLabel: string;
+  readonly mobileNavigationLabel: string;
+  readonly mobilePrimaryNavigationLabel: string;
+  readonly opensNewTabLabel: string;
+  readonly taskflowLiveAriaLabel: string;
+  readonly taskflowImageAlt: string;
+  readonly coursepilotStudyGuideAlt: string;
+  readonly coursepilotQuizAlt: string;
+}
+
+export interface AboutContent {
+  readonly paragraphs: readonly string[];
+  readonly skillsLabel: EditorialText;
+  readonly educationLabel: EditorialText;
+}
+
+export interface ContactContent {
+  readonly heading: EditorialText;
+  readonly description: EditorialText;
+  readonly connectLabel: EditorialText;
+  readonly socialLinksLabel: EditorialText;
+  readonly copyEmailLabel: EditorialText;
+  readonly copiedLabel: EditorialText;
+  readonly viewResumeLabel: EditorialText;
+  readonly backToTopLabel: EditorialText;
+  readonly footerName: EditorialText;
+  readonly footerRole: EditorialText;
+  readonly builtWithLabel: EditorialText;
+}
+
 export interface ProfileContent {
   readonly name: EditorialText;
   readonly headline: EditorialText;
@@ -73,8 +109,10 @@ export interface ExperienceEntry {
 export interface EducationEntry {
   readonly id: string;
   readonly institution: EditorialText;
+  readonly institutionSecondary: EditorialText;
   readonly credential: EditorialText;
   readonly field: EditorialText;
+  readonly degreeLabel: EditorialText;
   readonly location: EditorialText;
   readonly period: DateRangeContent;
   readonly highlights: readonly string[];
@@ -94,6 +132,9 @@ export interface SkillGroup {
 export interface PortfolioContent {
   readonly locale: Locale;
   readonly site: SiteContent;
+  readonly ui: InterfaceContent;
+  readonly about: AboutContent;
+  readonly contact: ContactContent;
   readonly profile: ProfileContent;
   readonly navigation: readonly NavigationItem[];
   readonly projects: ProjectCopyMap;

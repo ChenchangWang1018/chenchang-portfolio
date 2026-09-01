@@ -7,9 +7,9 @@ export const profile = {
   location: null,
   availability: null,
   contactLabels: {
-    github: null,
-    linkedin: null,
-    email: null,
+    github: "GitHub",
+    linkedin: "LinkedIn",
+    email: "Email",
     resume: "Resume",
   },
 } satisfies ProfileContent;

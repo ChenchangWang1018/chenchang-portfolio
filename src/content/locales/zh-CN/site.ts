@@ -1,8 +1,6 @@
 import type { SiteContent } from "../../types";
 
-// Author this copy specifically for mainland Chinese recruiting context.
 export const site = {
-  title: null,
-  description: null,
+  title: "王宸畅｜软件工程师",
+  description: "王宸畅的软件工程作品集，关注可靠系统、全栈开发与 AI 产品。",
 } satisfies SiteContent;
-

@@ -1,5 +1,5 @@
 import { PROJECT_CATALOG } from "../../content/project-catalog";
-import type { ProjectCopy } from "../../content/types";
+import type { InterfaceContent, ProjectCopy } from "../../content/types";
 import { TASKFLOW_SCROLL_EVENT } from "../../lib/scroll-events";
 import { ScrollExpand } from "./ScrollExpand";
 import { TaskFlowPreview } from "./TaskFlowPreview";
@@ -7,6 +7,10 @@ import styles from "./TaskFlowSection.module.css";
 
 interface TaskFlowSectionProps {
   readonly project: ProjectCopy;
+  readonly ui: Pick<
+    InterfaceContent,
+    "taskflowImageAlt" | "taskflowLiveAriaLabel"
+  >;
 }
 
 const requireCopy = (value: string | null, field: string) => {
@@ -14,7 +18,7 @@ const requireCopy = (value: string | null, field: string) => {
   return value;
 };
 
-export function TaskFlowSection({ project }: TaskFlowSectionProps) {
+export function TaskFlowSection({ project, ui }: TaskFlowSectionProps) {
   const catalog = PROJECT_CATALOG.taskflow;
   const liveUrl = catalog.links.live;
   const sourceUrl = catalog.links.github;
@@ -55,7 +59,12 @@ export function TaskFlowSection({ project }: TaskFlowSectionProps) {
         smoothing={0.1}
         progressEventName={TASKFLOW_SCROLL_EVENT}
         mediaContent={
-          <TaskFlowPreview href={liveUrl} imageSrc={imageSrc} />
+          <TaskFlowPreview
+            href={liveUrl}
+            imageAlt={ui.taskflowImageAlt}
+            imageSrc={imageSrc}
+            liveAriaLabel={ui.taskflowLiveAriaLabel}
+          />
         }
       >
         <div className={styles.details}>

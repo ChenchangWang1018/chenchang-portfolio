@@ -1,8 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import {
+  Fragment,
+  type MouseEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useRouter } from "next/navigation";
 
-import type { NavigationItem } from "../../content";
+import {
+  LOCALE_ROUTES,
+  ROUTE_LOCALES,
+  type RouteLocale,
+} from "../../config/locales";
+import type { InterfaceContent, NavigationItem } from "../../content";
 import {
   TASKFLOW_SCROLL_EVENT,
   type ScrollExpandProgressDetail,
@@ -11,15 +24,126 @@ import styles from "./SiteNavbar.module.css";
 
 interface SiteNavbarProps {
   items: readonly NavigationItem[];
+  locale: RouteLocale;
+  resumeHref: string;
   resumeLabel: string;
+  ui: InterfaceContent;
 }
 
-export function SiteNavbar({ items, resumeLabel }: SiteNavbarProps) {
+const NAVIGATION_SCROLL_DURATION = 550;
+const NAVIGATION_BREATHING_GAP = 20;
+
+function easeNavigationScroll(progress: number) {
+  const x1 = 0.22;
+  const y1 = 1;
+  const x2 = 0.36;
+  const y2 = 1;
+
+  const sample = (time: number, first: number, second: number) => {
+    const inverse = 1 - time;
+    return (
+      3 * inverse * inverse * time * first +
+      3 * inverse * time * time * second +
+      time * time * time
+    );
+  };
+
+  const sampleDerivative = (time: number) =>
+    3 * (1 - time) * (1 - time) * x1 +
+    6 * (1 - time) * time * (x2 - x1) +
+    3 * time * time * (1 - x2);
+
+  let time = progress;
+  for (let iteration = 0; iteration < 5; iteration += 1) {
+    const derivative = sampleDerivative(time);
+    if (Math.abs(derivative) < 0.0001) break;
+    time -= (sample(time, x1, x2) - progress) / derivative;
+    time = Math.min(1, Math.max(0, time));
+  }
+
+  return sample(time, y1, y2);
+}
+
+export function SiteNavbar({
+  items,
+  locale,
+  resumeHref,
+  resumeLabel,
+  ui,
+}: SiteNavbarProps) {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const firstMenuLinkRef = useRef<HTMLAnchorElement>(null);
+  const navigationFrameRef = useRef<number | null>(null);
+  const pendingMobileTargetRef = useRef<string | null>(null);
+  const pendingLocaleHrefRef = useRef<string | null>(null);
+
+  const cancelNavigationScroll = useCallback(() => {
+    if (navigationFrameRef.current === null) return;
+    cancelAnimationFrame(navigationFrameRef.current);
+    navigationFrameRef.current = null;
+  }, []);
+
+  const updateHash = useCallback((target: string) => {
+    const method = window.location.hash === target ? "replaceState" : "pushState";
+    window.history[method](null, "", target);
+  }, []);
+
+  const scrollToTarget = useCallback(
+    (target: string) => {
+      const targetElement = document.querySelector<HTMLElement>(target);
+      if (!targetElement) return;
+
+      cancelNavigationScroll();
+
+      const headerHeight = headerRef.current?.getBoundingClientRect().height ?? 0;
+      const unclampedTarget =
+        window.scrollY +
+        targetElement.getBoundingClientRect().top -
+        headerHeight -
+        NAVIGATION_BREATHING_GAP;
+      const maximumScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const targetScroll = Math.min(
+        maximumScroll,
+        Math.max(0, unclampedTarget),
+      );
+      const startScroll = window.scrollY;
+      const distance = targetScroll - startScroll;
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (reducedMotion || Math.abs(distance) < 1) {
+        window.scrollTo(0, targetScroll);
+        updateHash(target);
+        return;
+      }
+
+      const startTime = performance.now();
+      const animateScroll = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(1, elapsed / NAVIGATION_SCROLL_DURATION);
+        const easedProgress = easeNavigationScroll(progress);
+
+        window.scrollTo(0, startScroll + distance * easedProgress);
+
+        if (progress < 1) {
+          navigationFrameRef.current = requestAnimationFrame(animateScroll);
+          return;
+        }
+
+        navigationFrameRef.current = null;
+        updateHash(target);
+      };
+
+      navigationFrameRef.current = requestAnimationFrame(animateScroll);
+    },
+    [cancelNavigationScroll, updateHash],
+  );
 
   useEffect(() => {
     let animationFrame = 0;
@@ -39,6 +163,19 @@ export function SiteNavbar({ items, resumeLabel }: SiteNavbarProps) {
       window.removeEventListener("scroll", updateScrollState);
     };
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("wheel", cancelNavigationScroll, { passive: true });
+    window.addEventListener("touchstart", cancelNavigationScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("wheel", cancelNavigationScroll);
+      window.removeEventListener("touchstart", cancelNavigationScroll);
+      cancelNavigationScroll();
+    };
+  }, [cancelNavigationScroll]);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -107,7 +244,98 @@ export function SiteNavbar({ items, resumeLabel }: SiteNavbarProps) {
     };
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    if (isMenuOpen) return;
+
+    if (pendingLocaleHrefRef.current) {
+      const href = pendingLocaleHrefRef.current;
+      pendingLocaleHrefRef.current = null;
+      const routeFrame = requestAnimationFrame(() => router.push(href));
+
+      return () => cancelAnimationFrame(routeFrame);
+    }
+
+    if (!pendingMobileTargetRef.current) return;
+
+    const target = pendingMobileTargetRef.current;
+    pendingMobileTargetRef.current = null;
+    const animationFrame = requestAnimationFrame(() => scrollToTarget(target));
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [isMenuOpen, router, scrollToTarget]);
+
   const closeMenu = () => setIsMenuOpen(false);
+
+  const handleSectionNavigation = (
+    event: MouseEvent<HTMLAnchorElement>,
+    target: string,
+    fromMobileMenu = false,
+  ) => {
+    event.preventDefault();
+
+    if (fromMobileMenu) {
+      pendingMobileTargetRef.current = target;
+      setIsMenuOpen(false);
+      return;
+    }
+
+    scrollToTarget(target);
+  };
+
+  const handleLocaleNavigation = (
+    event: MouseEvent<HTMLAnchorElement>,
+    targetLocale: RouteLocale,
+    fromMobileMenu = false,
+  ) => {
+    event.preventDefault();
+    cancelNavigationScroll();
+
+    const destination = `${LOCALE_ROUTES[targetLocale].path}${window.location.hash}`;
+
+    if (fromMobileMenu) {
+      pendingLocaleHrefRef.current = destination;
+      setIsMenuOpen(false);
+      return;
+    }
+
+    router.push(destination);
+  };
+
+  const renderLocaleSwitcher = (mobile = false) => (
+    <div
+      className={`${styles.localeSwitcher} ${
+        mobile ? styles.mobileLocaleSwitcher : ""
+      }`}
+      aria-label={ui.languageLabel}
+    >
+      {ROUTE_LOCALES.map((routeLocale, index) => (
+        <Fragment key={routeLocale}>
+          {index > 0 ? (
+            <span className={styles.localeSeparator} aria-hidden="true">
+              /
+            </span>
+          ) : null}
+          {routeLocale === locale ? (
+            <span className={styles.localeCurrent} aria-current="page">
+              {LOCALE_ROUTES[routeLocale].label}
+            </span>
+          ) : (
+            <a
+              className={styles.localeLink}
+              href={LOCALE_ROUTES[routeLocale].path}
+              hrefLang={LOCALE_ROUTES[routeLocale].htmlLang}
+              lang={LOCALE_ROUTES[routeLocale].htmlLang}
+              onClick={(event) =>
+                handleLocaleNavigation(event, routeLocale, mobile)
+              }
+            >
+              {LOCALE_ROUTES[routeLocale].label}
+            </a>
+          )}
+        </Fragment>
+      ))}
+    </div>
+  );
 
   return (
     <header
@@ -118,26 +346,43 @@ export function SiteNavbar({ items, resumeLabel }: SiteNavbarProps) {
     >
       <div className={`page-container ${styles.headerContainer}`}>
         <div className={styles.navShell}>
-          <a className={styles.monogram} href="#top" onClick={closeMenu}>
+          <a
+            className={styles.monogram}
+            href="#top"
+            onClick={(event) =>
+              handleSectionNavigation(event, "#top", isMenuOpen)
+            }
+          >
             <span aria-hidden="true">CW</span>
-            <span className={styles.visuallyHidden}>Chenchang Wang, home</span>
+            <span className={styles.visuallyHidden}>{ui.homeLabel}</span>
           </a>
 
-          <nav className={styles.desktopNav} aria-label="Primary navigation">
+          <nav
+            className={styles.desktopNav}
+            aria-label={ui.primaryNavigationLabel}
+          >
             {items.map((item) => (
-              <a key={item.id} className={styles.navLink} href={item.target}>
+              <a
+                key={item.id}
+                className={styles.navLink}
+                href={item.target}
+                onClick={(event) =>
+                  handleSectionNavigation(event, item.target)
+                }
+              >
                 {item.label}
               </a>
             ))}
             <a
               className={styles.navLink}
-              href="/resumes/resume-en.pdf"
+              href={resumeHref}
               target="_blank"
-              rel="noreferrer"
-              aria-label={`${resumeLabel}, opens PDF in a new tab`}
+              rel="noopener noreferrer"
+              aria-label={`${resumeLabel}, ${ui.opensNewTabLabel}`}
             >
               {resumeLabel} <span aria-hidden="true">↗</span>
             </a>
+            {renderLocaleSwitcher()}
           </nav>
 
           <button
@@ -148,7 +393,7 @@ export function SiteNavbar({ items, resumeLabel }: SiteNavbarProps) {
             aria-controls="mobile-navigation"
             onClick={() => setIsMenuOpen((open) => !open)}
           >
-            {isMenuOpen ? "Close" : "Menu"}
+            {isMenuOpen ? ui.closeMenuLabel : ui.menuLabel}
           </button>
         </div>
       </div>
@@ -158,18 +403,23 @@ export function SiteNavbar({ items, resumeLabel }: SiteNavbarProps) {
         className={styles.mobilePanel}
         role="dialog"
         aria-modal="true"
-        aria-label="Mobile navigation"
+        aria-label={ui.mobileNavigationLabel}
         hidden={!isMenuOpen}
       >
         <div className={`page-container ${styles.mobilePanelInner}`}>
-          <nav className={styles.mobileNav} aria-label="Mobile primary navigation">
+          <nav
+            className={styles.mobileNav}
+            aria-label={ui.mobilePrimaryNavigationLabel}
+          >
             {items.map((item, index) => (
               <a
                 ref={index === 0 ? firstMenuLinkRef : undefined}
                 key={item.id}
                 className={styles.mobileLink}
                 href={item.target}
-                onClick={closeMenu}
+                onClick={(event) =>
+                  handleSectionNavigation(event, item.target, true)
+                }
               >
                 <span>{item.label}</span>
                 <span aria-hidden="true">↘</span>
@@ -177,15 +427,16 @@ export function SiteNavbar({ items, resumeLabel }: SiteNavbarProps) {
             ))}
             <a
               className={styles.mobileLink}
-              href="/resumes/resume-en.pdf"
+              href={resumeHref}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               onClick={closeMenu}
-              aria-label={`${resumeLabel}, opens PDF in a new tab`}
+              aria-label={`${resumeLabel}, ${ui.opensNewTabLabel}`}
             >
               <span>{resumeLabel}</span>
               <span aria-hidden="true">↗</span>
             </a>
+            {renderLocaleSwitcher(true)}
           </nav>
         </div>
       </div>

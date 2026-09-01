@@ -8,10 +8,11 @@ import styles from "./Hero.module.css";
 interface HeroProps {
   name: string;
   headline: string;
+  scrollHint: string;
   summary: string;
 }
 
-export function Hero({ name, headline, summary }: HeroProps) {
+export function Hero({ name, headline, scrollHint, summary }: HeroProps) {
   const visualRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -73,7 +74,7 @@ export function Hero({ name, headline, summary }: HeroProps) {
           </div>
 
           <p className={styles.scrollCue} aria-hidden="true">
-            Scroll to explore ↓
+            {scrollHint}
           </p>
         </div>
       </div>

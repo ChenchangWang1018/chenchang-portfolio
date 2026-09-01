@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { PROJECT_CATALOG } from "../../content/project-catalog";
-import type { ProjectCopy } from "../../content/types";
+import type { InterfaceContent, ProjectCopy } from "../../content/types";
 import {
   CardBody,
   CardContainer,
@@ -11,6 +11,10 @@ import styles from "./CoursePilotSection.module.css";
 
 interface CoursePilotSectionProps {
   readonly project: ProjectCopy;
+  readonly ui: Pick<
+    InterfaceContent,
+    "coursepilotQuizAlt" | "coursepilotStudyGuideAlt"
+  >;
 }
 
 const requireCopy = (value: string | null, field: string) => {
@@ -18,7 +22,7 @@ const requireCopy = (value: string | null, field: string) => {
   return value;
 };
 
-export function CoursePilotSection({ project }: CoursePilotSectionProps) {
+export function CoursePilotSection({ project, ui }: CoursePilotSectionProps) {
   const catalog = PROJECT_CATALOG.coursepilot;
   const sourceUrl = catalog.links.github;
   const [studyGuideSrc, quizSrc] = catalog.publicAssets;
@@ -68,7 +72,7 @@ export function CoursePilotSection({ project }: CoursePilotSectionProps) {
                     <Image
                       className={styles.image}
                       src={studyGuideSrc}
-                      alt="CoursePilot study guide interface"
+                      alt={ui.coursepilotStudyGuideAlt}
                       width={1840}
                       height={1474}
                       sizes="(max-width: 56rem) 92vw, 58vw"
@@ -84,7 +88,7 @@ export function CoursePilotSection({ project }: CoursePilotSectionProps) {
                     <Image
                       className={styles.image}
                       src={quizSrc}
-                      alt="CoursePilot practice quiz interface"
+                      alt={ui.coursepilotQuizAlt}
                       width={1840}
                       height={1482}
                       sizes="(max-width: 56rem) 58vw, 30vw"

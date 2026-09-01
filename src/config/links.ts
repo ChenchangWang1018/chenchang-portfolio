@@ -14,6 +14,14 @@ export const VERIFIED_LINKS = {
       address: "chenchang041018@gmail.com",
       href: "mailto:chenchang041018@gmail.com",
     },
+    resume: {
+      en: {
+        href: "/resumes/resume-en.pdf",
+      },
+      "zh-CN": {
+        href: "/resumes/resume-zh.pdf",
+      },
+    },
   },
   projects: {
     taskflow: {
@@ -29,4 +37,3 @@ export const VERIFIED_LINKS = {
     },
   },
 } as const;
-

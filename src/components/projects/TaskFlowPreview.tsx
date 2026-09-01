@@ -13,10 +13,17 @@ interface PointerOrigin {
 
 interface TaskFlowPreviewProps {
   readonly href: string;
+  readonly imageAlt: string;
   readonly imageSrc: string;
+  readonly liveAriaLabel: string;
 }
 
-export function TaskFlowPreview({ href, imageSrc }: TaskFlowPreviewProps) {
+export function TaskFlowPreview({
+  href,
+  imageAlt,
+  imageSrc,
+  liveAriaLabel,
+}: TaskFlowPreviewProps) {
   const pointerOrigin = useRef<PointerOrigin | null>(null);
 
   const handlePointerDown = (event: PointerEvent<HTMLAnchorElement>) => {
@@ -51,7 +58,7 @@ export function TaskFlowPreview({ href, imageSrc }: TaskFlowPreviewProps) {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open the live TaskFlow application in a new tab"
+        aria-label={liveAriaLabel}
         onPointerDown={handlePointerDown}
         onClick={handleClick}
       />
@@ -81,7 +88,7 @@ export function TaskFlowPreview({ href, imageSrc }: TaskFlowPreviewProps) {
           className={styles.browserImage}
           data-scroll-expand-media
           src={imageSrc}
-          alt="TaskFlow distributed operations dashboard showing task lifecycle and worker state"
+          alt={imageAlt}
           width={2544}
           height={1468}
           sizes="100vw"

@@ -1,0 +1,135 @@
+.button {
+  position: fixed;
+  z-index: 60;
+  right: max(clamp(1.25rem, 3vw, 2rem), env(safe-area-inset-right));
+  bottom: max(clamp(1.25rem, 3vw, 2rem), env(safe-area-inset-bottom));
+  display: inline-flex;
+  width: 3.125rem;
+  height: 3.125rem;
+  padding: 0;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--color-text-secondary);
+  background: rgb(14 14 14 / 94%);
+  font-family: var(--font-family-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0;
+  visibility: hidden;
+  cursor: pointer;
+  pointer-events: none;
+  transform: translateY(0.4rem);
+  transition:
+    width var(--duration-standard) var(--ease-primary),
+    bottom var(--duration-standard) var(--ease-primary),
+    border-color var(--duration-micro) var(--ease-primary),
+    background-color var(--duration-micro) var(--ease-primary),
+    color var(--duration-micro) var(--ease-primary),
+    opacity var(--duration-micro) var(--ease-primary),
+    transform var(--duration-micro) var(--ease-primary),
+    visibility 0s linear var(--duration-micro);
+}
+
+.button[data-visible="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.button:hover {
+  width: 8.5rem;
+  border-color: var(--color-border-hover);
+  color: var(--color-text-primary);
+  background: var(--color-bg-elevated);
+}
+
+.button:focus-visible {
+  width: 8.5rem;
+  border-color: var(--color-border-hover);
+  color: var(--color-text-primary);
+  background: var(--color-bg-elevated);
+  outline: 2px solid var(--color-accent-ice);
+  outline-offset: 3px;
+}
+
+.label {
+  position: absolute;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(0.4rem);
+  transition:
+    opacity var(--duration-micro) var(--ease-primary),
+    transform var(--duration-standard) var(--ease-primary);
+}
+
+.arrow {
+  display: block;
+  font-size: 1rem;
+  line-height: 1;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--duration-micro) var(--ease-primary),
+    transform var(--duration-standard) var(--ease-primary);
+}
+
+.button:hover .label,
+.button:focus-visible .label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.button:hover .arrow,
+.button:focus-visible .arrow {
+  opacity: 0;
+  transform: translateY(-1.25rem);
+}
+
+@media (min-width: 40rem) {
+  .button[data-near-footer="true"] {
+    bottom: max(5.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .button:hover {
+    width: 3.125rem;
+  }
+
+  .button:hover .label {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+
+  .button:hover .arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transform: none;
+    transition:
+      width 0s,
+      bottom 0s,
+      border-color var(--duration-micro) linear,
+      background-color var(--duration-micro) linear,
+      color var(--duration-micro) linear,
+      opacity var(--duration-micro) linear,
+      visibility 0s linear var(--duration-micro);
+  }
+
+  .label,
+  .arrow {
+    transition: none;
+  }
+}
