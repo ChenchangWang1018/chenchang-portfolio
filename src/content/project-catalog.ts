@@ -41,5 +41,6 @@ export const PROJECT_CATALOG = {
       github: VERIFIED_LINKS.projects.pong.github,
     },
     sourceAssets: SOURCE_ASSETS.projects.pong,
+    publicAssets: ["/projects/pong/pong-lobby-02.webp"],
   },
 } as const satisfies Record<ProjectId, ProjectCatalogEntry>;

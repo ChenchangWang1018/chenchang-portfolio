@@ -14,6 +14,9 @@ export const SOURCE_ASSETS = {
       "assets-source/coursepilot/coursepilot-study-guide-02.png",
       "assets-source/coursepilot/coursepilot-quiz-01.png",
     ],
-    pong: ["assets-source/pong/pong-lobby-01.png"],
+    pong: [
+      "assets-source/pong/pong-lobby-01.png",
+      "assets-source/pong/pong-lobby-02.png",
+    ],
   },
 } as const;

@@ -52,17 +52,18 @@ export const projects = {
   },
   pong: {
     id: "pong",
-    name: "3D Pong",
-    eyebrow: null,
+    name: "3D Multiplayer Pong",
+    eyebrow: "03 / Other work",
     scrollHint: null,
     summary: null,
-    description: null,
+    description:
+      "A real-time multiplayer 3D Pong game with public and private lobbies, matchmaking, player profiles, leaderboards, and Google OAuth.",
     role: null,
     period: null,
     highlights: [],
-    technologies: [],
+    technologies: ["Three.js", "WebSockets", "Node.js", "Express", "SQLite"],
     linkLabels: {
-      github: null,
+      github: "View source",
     },
   },
 } as const satisfies ProjectCopyMap;

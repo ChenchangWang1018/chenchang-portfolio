@@ -1,6 +1,7 @@
 import { Hero } from "../components/hero/Hero";
 import { SiteNavbar } from "../components/navigation/SiteNavbar";
 import { CoursePilotSection } from "../components/projects/CoursePilotSection";
+import { OtherWorkSection } from "../components/projects/OtherWorkSection";
 import { TaskFlowSection } from "../components/projects/TaskFlowSection";
 import { getPortfolioContent } from "../content";
 
@@ -26,6 +27,7 @@ export default function Home() {
         <Hero name={name} headline={headline} summary={summary} />
         <TaskFlowSection project={content.projects.taskflow} />
         <CoursePilotSection project={content.projects.coursepilot} />
+        <OtherWorkSection projects={[content.projects.pong]} />
       </main>
     </>
   );
