@@ -32,6 +32,7 @@ export function CoursePilotSection({ project, ui }: CoursePilotSectionProps) {
     project.linkLabels.github ?? null,
     "source label",
   );
+  const titleMatch = project.name.match(/^(.*)\s+(AI)$/i);
 
   return (
     <section className={styles.section} aria-labelledby="coursepilot-title">
@@ -41,7 +42,14 @@ export function CoursePilotSection({ project, ui }: CoursePilotSectionProps) {
         <div className={styles.layout}>
           <div className={styles.copy}>
             <h2 id="coursepilot-title" className={styles.title}>
-              {project.name}
+              {titleMatch ? (
+                <>
+                  {titleMatch[1]}{" "}
+                  <span className={styles.titleSuffix}>{titleMatch[2]}</span>
+                </>
+              ) : (
+                project.name
+              )}
             </h2>
             <p className={styles.description}>{description}</p>
             <p className={styles.technologies}>

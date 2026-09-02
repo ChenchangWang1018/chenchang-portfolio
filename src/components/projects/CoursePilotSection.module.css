@@ -231,12 +231,26 @@
   }
 
   .layout {
+    min-width: 0;
+    max-width: 100%;
     gap: var(--space-10);
     padding-top: var(--space-8);
   }
 
+  .copy,
   .title {
-    font-size: clamp(2.75rem, 15vw, 4.5rem);
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .title {
+    width: 100%;
+    font-size: clamp(2.5rem, 12.5vw, 3.5rem);
+    line-height: 0.92;
+  }
+
+  .titleSuffix {
+    display: block;
   }
 
   .description {
@@ -253,7 +267,18 @@
   }
 
   .cardBody {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     height: clamp(19rem, 105vw, 27rem);
+  }
+
+  .showcase,
+  .cardContainer,
+  .tiltPlane {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .studyGuide {
