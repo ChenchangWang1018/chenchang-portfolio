@@ -1,3 +1,5 @@
+import { ArrowUpRight } from "lucide-react";
+
 import type { ContactContent, ProfileContent } from "../../content/types";
 import { BackToTop } from "./BackToTop";
 import { CopyEmailButton } from "./CopyEmailButton";
@@ -163,7 +165,12 @@ export function ContactSection({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {viewResumeLabel} <span aria-hidden="true">↗</span>
+                {viewResumeLabel}
+                <ArrowUpRight
+                  className={styles.resumeIcon}
+                  aria-hidden="true"
+                  strokeWidth={1.5}
+                />
               </a>
             </div>
           </div>

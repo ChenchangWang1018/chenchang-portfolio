@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState, type PointerEvent } from "react";
+import { ArrowUpRight } from "lucide-react";
 
 import { PROJECT_CATALOG } from "../../content/project-catalog";
 import type { ProjectCopy } from "../../content/types";
@@ -172,7 +173,12 @@ export function OtherWorkSection({ projects }: OtherWorkSectionProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {project.sourceLabel} <span aria-hidden="true">↗</span>
+                      {project.sourceLabel}
+                      <ArrowUpRight
+                        className={styles.actionIcon}
+                        aria-hidden="true"
+                        strokeWidth={1.5}
+                      />
                     </a>
                   </div>
 

@@ -141,6 +141,13 @@
   color: var(--color-accent-ice);
 }
 
+.actionIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.25em;
+  vertical-align: -0.14em;
+}
+
 .previewPanel {
   display: flex;
   min-width: 0;

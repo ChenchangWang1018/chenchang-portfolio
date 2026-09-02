@@ -89,6 +89,13 @@
   color: var(--color-text-primary);
 }
 
+.arrowIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.2em;
+  vertical-align: -0.12em;
+}
+
 .localeSwitcher {
   display: inline-flex;
   padding-left: var(--space-3);
@@ -173,6 +180,12 @@
   font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.025em;
+}
+
+.mobileArrowIcon {
+  width: clamp(1.125rem, 4.5vw, 1.35rem);
+  height: clamp(1.125rem, 4.5vw, 1.35rem);
+  flex: none;
 }
 
 .mobileLocaleSwitcher {

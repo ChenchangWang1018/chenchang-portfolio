@@ -61,6 +61,9 @@
 }
 
 .scrollCue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
   color: var(--color-text-muted);
   font-family: var(--font-family-mono);
   font-size: var(--type-meta-size);
@@ -69,6 +72,12 @@
   line-height: 1.4;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.scrollCueIcon {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
 }
 
 @media (max-width: 47.999rem) {

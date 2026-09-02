@@ -106,6 +106,14 @@
   will-change: opacity;
 }
 
+.hintIcon {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.4em;
+  vertical-align: -0.16em;
+}
+
 @media (max-width: 40rem) {
   .stage {
     min-height: 34rem;

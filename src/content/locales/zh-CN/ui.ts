@@ -1,7 +1,7 @@
 import type { InterfaceContent } from "../../types";
 
 export const ui = {
-  heroScrollHint: "向下探索 ↓",
+  heroScrollHint: "向下探索",
   languageLabel: "语言",
   homeLabel: "王宸畅，返回顶部",
   primaryNavigationLabel: "主导航",

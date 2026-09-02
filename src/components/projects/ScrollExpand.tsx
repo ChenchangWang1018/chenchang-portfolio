@@ -6,6 +6,7 @@ import {
   useEffect,
   useRef,
 } from "react";
+import { ArrowDown } from "lucide-react";
 
 import type { ScrollExpandProgressDetail } from "../../lib/scroll-events";
 import styles from "./ScrollExpand.module.css";
@@ -318,6 +319,7 @@ export function ScrollExpand({
           </h2>
           <p ref={hintRef} className={styles.hint}>
             {scrollHint}
+            <ArrowDown className={styles.hintIcon} aria-hidden="true" strokeWidth={1.5} />
           </p>
         </div>
       </div>

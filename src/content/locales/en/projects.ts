@@ -5,7 +5,7 @@ export const projects = {
     id: "taskflow",
     name: "TaskFlow",
     eyebrow: "01 / Selected work",
-    scrollHint: "Scroll to expand ↓",
+    scrollHint: "Scroll to expand",
     summary:
       "Distributed task scheduling built around reliability, recovery, and observable worker state.",
     description:

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { ArrowDown } from "lucide-react";
 
 import { AsciiName } from "./AsciiName";
 import styles from "./Hero.module.css";
@@ -75,6 +76,7 @@ export function Hero({ name, headline, scrollHint, summary }: HeroProps) {
 
           <p className={styles.scrollCue} aria-hidden="true">
             {scrollHint}
+            <ArrowDown className={styles.scrollCueIcon} strokeWidth={1.5} />
           </p>
         </div>
       </div>

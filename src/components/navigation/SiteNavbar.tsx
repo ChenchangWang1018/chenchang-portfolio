@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
 import {
   LOCALE_ROUTES,
@@ -425,7 +426,12 @@ export function SiteNavbar({
               rel="noopener noreferrer"
               aria-label={`${resumeLabel}, ${ui.opensNewTabLabel}`}
             >
-              {resumeLabel} <span aria-hidden="true">↗</span>
+              {resumeLabel}
+              <ArrowUpRight
+                className={styles.arrowIcon}
+                aria-hidden="true"
+                strokeWidth={1.5}
+              />
             </a>
             {renderLocaleSwitcher()}
           </nav>
@@ -467,7 +473,11 @@ export function SiteNavbar({
                 }
               >
                 <span>{item.label}</span>
-                <span aria-hidden="true">↘</span>
+                <ArrowDownRight
+                  className={styles.mobileArrowIcon}
+                  aria-hidden="true"
+                  strokeWidth={1.4}
+                />
               </a>
             ))}
             <a
@@ -479,7 +489,11 @@ export function SiteNavbar({
               aria-label={`${resumeLabel}, ${ui.opensNewTabLabel}`}
             >
               <span>{resumeLabel}</span>
-              <span aria-hidden="true">↗</span>
+              <ArrowUpRight
+                className={styles.mobileArrowIcon}
+                aria-hidden="true"
+                strokeWidth={1.4}
+              />
             </a>
             {renderLocaleSwitcher(true)}
           </nav>

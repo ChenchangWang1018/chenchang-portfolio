@@ -190,6 +190,13 @@
   color: var(--color-text-primary);
 }
 
+.resumeIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.25em;
+  vertical-align: -0.14em;
+}
+
 .footer {
   border-top: 1px solid var(--color-border-default);
   background: var(--color-bg-primary);

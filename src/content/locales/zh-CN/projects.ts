@@ -5,7 +5,7 @@ export const projects = {
     id: "taskflow",
     name: "TaskFlow",
     eyebrow: "01 / 精选项目",
-    scrollHint: "滚动展开 ↓",
+    scrollHint: "滚动展开",
     summary: "围绕可靠性、故障恢复与 Worker 状态可观测性构建的分布式任务调度系统。",
     description:
       "一个支持并发 Worker、任务重试、心跳检测、故障恢复与任务状态追踪的分布式任务调度系统。",

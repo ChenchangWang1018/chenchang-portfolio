@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { type MouseEvent, type PointerEvent, useRef } from "react";
+import { ArrowUpRight } from "lucide-react";
 
 import styles from "./TaskFlowSection.module.css";
 
@@ -80,7 +81,12 @@ export function TaskFlowPreview({
           onPointerDown={handlePointerDown}
           onClick={handleClick}
         >
-          TASKFLOW / LIVE ↗
+          <span>TASKFLOW / LIVE</span>
+          <ArrowUpRight
+            className={styles.browserLabelIcon}
+            aria-hidden="true"
+            strokeWidth={1.5}
+          />
         </a>
       </span>
       <span className={styles.browserViewport}>

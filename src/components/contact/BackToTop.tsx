@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ArrowUp } from "lucide-react";
 
 import styles from "./BackToTop.module.css";
 
@@ -67,7 +68,7 @@ export function BackToTop({ label }: BackToTopProps) {
     >
       <span className={styles.label}>{label}</span>
       <span className={styles.arrow} aria-hidden="true">
-        ↑
+        <ArrowUp strokeWidth={1.5} />
       </span>
     </button>
   );

@@ -1,3 +1,5 @@
+import { ArrowUpRight } from "lucide-react";
+
 import { PROJECT_CATALOG } from "../../content/project-catalog";
 import type { InterfaceContent, ProjectCopy } from "../../content/types";
 import { TASKFLOW_SCROLL_EVENT } from "../../lib/scroll-events";
@@ -82,7 +84,12 @@ export function TaskFlowSection({ project, ui }: TaskFlowSectionProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {liveLabel} <span aria-hidden="true">↗</span>
+              {liveLabel}
+              <ArrowUpRight
+                className={styles.actionIcon}
+                aria-hidden="true"
+                strokeWidth={1.5}
+              />
             </a>
             <a
               className={styles.action}
@@ -90,7 +97,12 @@ export function TaskFlowSection({ project, ui }: TaskFlowSectionProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {sourceLabel} <span aria-hidden="true">↗</span>
+              {sourceLabel}
+              <ArrowUpRight
+                className={styles.actionIcon}
+                aria-hidden="true"
+                strokeWidth={1.5}
+              />
             </a>
           </div>
         </div>
